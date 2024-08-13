@@ -4,7 +4,7 @@ import json
 
 # MongoDB connection
 client = pymongo.MongoClient("mongodb://localhost:27017/")
-db = client['your_database']
+db = client['database']
 collection = db['shipment_data']
 
 # TCP Server setup
