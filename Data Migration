@@ -1,0 +1,26 @@
+import pymongo
+import mysql.connector
+
+# MongoDB connection
+client = pymongo.MongoClient("mongodb://localhost:27017/")
+db = client['database']
+collection = db['shipment_data']
+
+# MySQL connection
+mysql_conn = mysql.connector.connect(
+    host="your_mysql_host",
+    user="admin",
+    password="your_password",
+    database="your_database"
+)
+cursor = mysql_conn.cursor()
+
+# Migrate data
+for document in collection.find():
+    cursor.execute(
+        "INSERT INTO shipment_data (field1, field2, ...) VALUES (%s, %s, ...)",
+        (document['field1'], document['field2'], ...)
+    )
+mysql_conn.commit()
+cursor.close()
+mysql_conn.close()
